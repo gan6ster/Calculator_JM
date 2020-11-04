@@ -41,6 +41,8 @@ public class Calculator {
     // 10 15 17
     public static String transformNumber(int result){
         String[] romanSymbol = {"X", "IX", "VIII", "VII", "VI", "V", "IV", "III", "II", "I"};
+        String fortyRoman = "L";
+        String hundredRoman = "C";
         String parser = "";
 
         if(result <= 10){
@@ -51,9 +53,25 @@ public class Calculator {
         } else {
             int howTen = result / 10;
             int romanResult = result - (howTen * 10);
-            for (int j = 0; j < howTen ; j++) {
-                parser += romanSymbol[0];
+
+            if(howTen == 10){
+                parser += hundredRoman;
+            } else if(howTen >= 9){
+                parser += romanSymbol[0] + hundredRoman;
+            } else if (howTen >= 5){
+                parser += fortyRoman;
+                howTen -= 5;
+                for (int j = 0; j < howTen; j++) {
+                    parser += romanSymbol[0];
+                }
+            } else if(howTen >= 4){
+                parser += romanSymbol[0] + fortyRoman;
+            } else {
+                for (int j = 0; j < howTen; j++) {
+                    parser += romanSymbol[0];
+                }
             }
+
             for (int x = 0; x < romanSymbol.length; x++) {
                 if (romanResult == 10 - x) {
                     parser += romanSymbol[x];
@@ -87,4 +105,6 @@ public class Calculator {
         else
             System.out.println(result);
     }
+
+
 }
